@@ -9,4 +9,81 @@
     #result { background: #f4f4f4; padding: 10px; border-left: 4px solid #333; white-space: pre-line; margin-bottom: 20px; }
     .bug { background: #ffe6e6; padding: 10px; margin: 10px 0; border-left: 4px solid red; }
     .fix { background: #e6ffe6; padding: 10px; margin: 10px 0; border-left: 4px solid green; }
-    code { background: #f4f4f4; paddin
+    code { background: #f4f4f4; padding: 2px 5px; display: block; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>💻 Scanner de code & bugs fréquents</h1>
+
+  <h2>1️⃣ Scanner de code JavaScript simple</h2>
+  <p>Colle ton code JS ici :</p>
+  <textarea id="code"></textarea>
+  <button onclick="scanCode()">Scanner le code</button>
+  <div id="result"></div>
+
+  <script>
+    function scanCode() {
+      const code = document.getElementById('code').value;
+      let result = '';
+
+      // Détection console.Log
+      if(code.includes('console.Log')) {
+        result += "❌ Attention : 'console.Log' est incorrect. Il faut mettre 'console.log'\n";
+      }
+
+      // Détection point-virgule manquant (très basique)
+      if(code.includes('let') && !code.includes(';')) {
+        result += "⚠️ Vérifie les points-virgules à la fin des lignes.\n";
+      }
+
+      // Détection majuscule/minuscule pour console
+      if(code.includes('Console.log')) {
+        result += "❌ Attention : 'Console.log' est incorrect, utilisez 'console.log'\n";
+      }
+
+      if(result === '') result = "✅ Aucun problème détecté par le scanner simple.";
+      document.getElementById('result').innerText = result;
+    }
+  </script>
+
+  <h2>2️⃣ Bugs simples fréquents pour débutants</h2>
+
+  <div class="bug">
+    <h3>❌ Mauvaise syntaxe JS</h3>
+    <code>console.Log("Hello");</code>
+  </div>
+  <div class="fix">
+    <h3>✅ Correction</h3>
+    <code>console.log("Hello");</code>
+  </div>
+
+  <div class="bug">
+    <h3>❌ HTML non fermé</h3>
+    <code>&lt;p&gt;Bonjour</code>
+  </div>
+  <div class="fix">
+    <h3>✅ Correction</h3>
+    <code>&lt;p&gt;Bonjour&lt;/p&gt;</code>
+  </div>
+
+  <div class="bug">
+    <h3>❌ CSS mauvaise propriété</h3>
+    <code>p { colour: red; }</code>
+  </div>
+  <div class="fix">
+    <h3>✅ Correction</h3>
+    <code>p { color: red; }</code>
+  </div>
+
+  <div class="bug">
+    <h3>❌ Oubli point-virgule</h3>
+    <code>let a = 5</code>
+  </div>
+  <div class="fix">
+    <h3>✅ Correction</h3>
+    <code>let a = 5;</code>
+  </div>
+
+</body>
+</html>
